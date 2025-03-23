@@ -1,8 +1,8 @@
 package day01
 
 import (
+	"advent-of-code-2024/utils"
 	"fmt"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -13,8 +13,8 @@ func Run() {
 	fmt.Printf("Total similarity: %d\n", part2())
 }
 
-func part1() int {	
-	data := readFile()
+func part1() int {
+	data := utils.ReadFile("inputs/01.txt")
 	contents := formatInput(data)
 
 	list1, list2 := createLists(contents)
@@ -26,10 +26,10 @@ func part1() int {
 	for index, x := range list1 {
 		y := list2[index]
 
-		if (x > y) {
-			diffs = append(diffs, x - y)
+		if x > y {
+			diffs = append(diffs, x-y)
 		} else {
-			diffs = append(diffs, y - x)
+			diffs = append(diffs, y-x)
 		}
 	}
 
@@ -42,17 +42,17 @@ func part1() int {
 }
 
 func part2() int {
-	data := readFile()
+	data := utils.ReadFile("inputs/01.txt")
 	contents := formatInput(data)
 	list1, list2 := createLists(contents)
 
 	var occurenceScores []int
-	
+
 	for _, element := range list1 {
 		total := 0
 		for _, compElement := range list2 {
-			if (element == compElement) {
-				total ++
+			if element == compElement {
+				total++
 			}
 		}
 
@@ -66,15 +66,6 @@ func part2() int {
 	}
 
 	return similarity
-}
-
-func readFile() []byte {
-	data, err := os.ReadFile("inputs/01.txt")
-	if err != nil {
-		fmt.Println("Error reading file")
-	}
-
-	return data
 }
 
 func formatInput(data []byte) []string {
